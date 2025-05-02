@@ -3,7 +3,8 @@ export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 
 const LeaderBoardAndStatsPage = async () => {
-  const res = await fetch("http://localhost:3000/api/leaderboard", {
+  const apiUrl = process.env.NEXT_PUBLIC_VERCEL_URL || "http://localhost:3000";
+  const res = await fetch(`${apiUrl}/api/leaderboard`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

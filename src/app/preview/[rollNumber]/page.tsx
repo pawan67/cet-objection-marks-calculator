@@ -5,8 +5,9 @@ type Params = Promise<{ rollNumber: string }>;
 
 const SummaryPreviewPage = async ({ params }: { params: Params }) => {
   const { rollNumber } = await params;
+  const apiUrl = process.env.NEXT_PUBLIC_VERCEL_URL || "http://localhost:3000";
 
-  const res = await fetch(`http://localhost:3000/api/summary/${rollNumber}`, {
+  const res = await fetch(`${apiUrl}/api/summary/${rollNumber}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
