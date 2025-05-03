@@ -42,7 +42,18 @@ export function Home() {
       scores: getOverallMarks(getSubjectWiseSummary(parsed)),
     });
 
-    console.log("Parsed Data:", parsed, data);
+    const res = await fetch("/api/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        roll_number: extractedRollNumber,
+        name: extractedName,
+        questionsData: parsed,
+        scores: getOverallMarks(getSubjectWiseSummary(parsed)),
+      }),
+    });
 
     setIsFileAdded(true);
     toast.success("File uploaded successfully!");
