@@ -53,7 +53,7 @@ export function SummaryPreview({
     <main className="max-w-3xl mx-auto  h-full min-h-screen p-5">
       <div>
         <div className="grid h-full gap-5 md:grid-cols-2 ">
-          <Card className=" col-span-2">
+          <Card className=" md:col-span-2">
             <CardHeader className="text-2xl font-bold">
               🧮 Results for : {data.name}
             </CardHeader>

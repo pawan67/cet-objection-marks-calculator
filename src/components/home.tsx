@@ -77,7 +77,7 @@ function HomePage({ handleFileData }: { handleFileData: any }) {
                 <CircleAlert className="h-4 w-4" />
                 <AlertDescription>
                   When you upload your .htm file, the app will extract the data
-                  from it and use it to show your rank on the leaderboard.
+                  from it and show the results and summary.
                 </AlertDescription>
               </Alert>
             </CardContent>
