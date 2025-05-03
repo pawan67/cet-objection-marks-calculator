@@ -8,9 +8,9 @@ export function OverallSummary({ data }: { data: ParsedQuestion[] }) {
   const summary = getOverallMarks(getSubjectWiseSummary(data));
 
   return (
-    <ul className="grid grid-cols-2 gap-5">
+    <ul className="grid grid-cols-2 text-sm gap-5">
       <li>
-        <h3 className="font-semibold">Total Marks</h3>
+        <h3 className="font-semibold text-sm">Total Marks</h3>
         <p>{summary.totalMarks}</p>
       </li>
       <li>

@@ -14,10 +14,14 @@ import { getOverallMarks } from "@/totalSummay";
 import { CircleAlert } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
+import { SummaryPreview } from "./Preview";
 
 export function Home() {
   const router = useRouter();
+  const [data, setData] = useState<any>(null);
+  const [isFileAdded, setIsFileAdded] = useState(false);
   const handleFileData = async (html: string) => {
     const parsed = parseObjectionTable(html);
 
@@ -31,38 +35,33 @@ export function Home() {
       return;
     }
 
-    const res = await fetch("/api/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        roll_number: extractedRollNumber,
-        name: extractedName,
-        questionsData: parsed,
-        scores: getOverallMarks(getSubjectWiseSummary(parsed)),
-      }),
+    setData({
+      roll_number: extractedRollNumber,
+      name: extractedName,
+      questionsData: parsed,
+      scores: getOverallMarks(getSubjectWiseSummary(parsed)),
     });
-    const data = await res.json();
 
-    console.log("Response data:", data);
-    if (res.status === 200) {
-      toast.success("Data inserted successfully");
-      console.log("Data inserted successfully:", data);
-      router.push("/preview" + `/${extractedRollNumber}`);
-    }
-    if (res.status === 400) {
-      toast.error("Roll number already exists");
-      router.push("/preview" + `/${extractedRollNumber}`);
+    console.log("Parsed Data:", parsed, data);
 
-      console.error("Error inserting data:", data);
-    }
-    if (res.status === 500) {
-      toast.error("Internal server error");
-      console.error("Internal server error:", data);
-    }
+    setIsFileAdded(true);
+    toast.success("File uploaded successfully!");
   };
 
+  console.log("Data:", data);
+
+  return (
+    <div>
+      {isFileAdded && data ? (
+        <SummaryPreview data={data} />
+      ) : (
+        <HomePage handleFileData={handleFileData} />
+      )}
+    </div>
+  );
+}
+
+function HomePage({ handleFileData }: { handleFileData: any }) {
   return (
     <main className="container mx-auto h-full min-h-screen p-5">
       <div className=" max-w-3xl mx-auto">
@@ -81,14 +80,6 @@ export function Home() {
                   from it and use it to show your rank on the leaderboard.
                 </AlertDescription>
               </Alert>
-              <div className="mt-5">
-                <Link
-                  className="mt-5 text-blue-400 underline"
-                  href="/leaderboard-and-stats"
-                >
-                  📊 Click to see the leaderboard and detailed analysis
-                </Link>
-              </div>
             </CardContent>
           </Card>
         </div>

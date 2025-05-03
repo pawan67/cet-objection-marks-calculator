@@ -18,7 +18,8 @@ import { TOverallSummary } from "@/lib/totalSummay";
 import { ArrowLeft, CircleAlert } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { buttonVariants } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 export function SummaryPreview({
   data,
@@ -46,28 +47,26 @@ export function SummaryPreview({
     if (extractedRollNumber) setIsFileAdded(true);
   };
 
+  const router = useRouter();
+
   return (
-    <main className="container mx-auto h-full min-h-screen p-5">
+    <main className="max-w-3xl mx-auto  h-full min-h-screen p-5">
       <div>
-        <div className="grid h-full gap-5 md:grid-cols-3">
-          <Card>
+        <div className="grid h-full gap-5 md:grid-cols-2 ">
+          <Card className=" col-span-2">
             <CardHeader className="text-2xl font-bold">
-              🧮 Results for : {data.roll_number}
+              🧮 Results for : {data.name}
             </CardHeader>
             <CardContent>
-              <Link className={buttonVariants()} href="/">
-                <ArrowLeft /> Go Back to Home
-              </Link>
+              <Alert variant="default">
+                <CircleAlert className="h-4 w-4" />
+                <AlertDescription className="text-sm">
+                  Reload the page to upload a new file.
+                </AlertDescription>
+              </Alert>
 
-              <br />
-              <div className="mt-5">
-                <Link
-                  className="mt-5 text-blue-400 underline"
-                  href="/leaderboard-and-stats"
-                >
-                  📊 Click to see the leaderboard and detailed analysis for 2025
-                </Link>
-              </div>
+          
+
               <Link
                 href="https://www.linkedin.com/in/pawan67/"
                 target="_blank"
@@ -95,7 +94,7 @@ export function SummaryPreview({
             <CardHeader>
               {" "}
               <h2 className="text-2xl font-bold">Summary</h2>
-              <div className="absolute right-5 top-3">
+              <div className="absolute right-5 top-5">
                 <ThemeToggle />
               </div>
             </CardHeader>
