@@ -2,7 +2,7 @@
 import FileUploader from "@/components/FileUploader";
 import { InstructionsCard } from "@/components/InstructionsCard";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   extractNameFromHTML,
   extractRollNumberFromHTML,
@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { SummaryPreview } from "./Preview";
+import { Button } from "./ui/button";
 
 export function Home() {
   const router = useRouter();
@@ -41,6 +42,7 @@ export function Home() {
       questionsData: parsed,
       scores: getOverallMarks(getSubjectWiseSummary(parsed)),
     });
+    setIsFileAdded(true);
 
     const res = await fetch("/api/submit", {
       method: "POST",
@@ -55,7 +57,6 @@ export function Home() {
       }),
     });
 
-    setIsFileAdded(true);
     toast.success("File uploaded successfully!");
   };
 
@@ -98,6 +99,18 @@ function HomePage({ handleFileData }: { handleFileData: any }) {
         <div className="mt-5">
           <InstructionsCard />
         </div>
+
+        <Card className=" mt-5">
+          <CardHeader>
+            <CardTitle>Experimental Features 🧪</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>This is a experimental feature, it is not yet ready.</p>
+            <Button className=" mt-5">
+              <Link href="/leaderboard-and-stats">Leaderboard and Stats</Link>
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     </main>
   );

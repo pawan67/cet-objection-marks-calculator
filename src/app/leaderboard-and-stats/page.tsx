@@ -1,6 +1,7 @@
 import Leaderboard from "@/components/leaderboard";
 export const dynamic = "force-dynamic";
-export const fetchCache = "force-no-store";
+
+// This page is used to display the leaderboard and stats no cache
 
 const LeaderBoardAndStatsPage = async () => {
   const apiUrl = process.env.NEXT_PUBLIC_VERCEL_URL || "http://localhost:3000";
@@ -8,6 +9,9 @@ const LeaderBoardAndStatsPage = async () => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+      Pragma: "no-cache",
+      Expires: "0",
     },
   });
 
