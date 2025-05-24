@@ -105,7 +105,10 @@ function HomePage({ handleFileData }: { handleFileData: any }) {
             <CardTitle>Experimental Features 🧪</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>This is a experimental feature, it is not yet ready.</p>
+            <p>
+              This is a experimental feature, it is not yet ready and data maybe
+              not accurate.
+            </p>
             <Button className=" mt-5">
               <Link href="/leaderboard-and-stats">Leaderboard and Stats</Link>
             </Button>

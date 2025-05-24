@@ -228,7 +228,7 @@ export default function Leaderboard({ data }: { data: LeaderboardData }) {
         </Card>
       </div>
 
-      <Card className=" col-span-full">
+      <Card className=" mt-5 col-span-full">
         <CardHeader>
           <CardTitle>Leaderboard</CardTitle>
         </CardHeader>
